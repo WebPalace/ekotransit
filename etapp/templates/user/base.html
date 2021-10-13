@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>EKO Transit | {%block title%}{% endblock title%}</title>
+	<meta name="viewport" content="width= device-width, initial-scale=1,shrink-to-fit=no">
+	<meta charset="utf-8">
+	<!--External Stylesheet-->
+	<link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{% block css %}{% endblock css%}" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+        .img{max-width:100%;height:auto}
+        .menubar{background-color:#E6FAFC} 
+        .navbar .navbar-nav li a{font-family:futura;font-size:18px;color:#484C6B !important;position:relative;left:550px}
+        </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-12 menubar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+              <a class="navbar-brand" href="#"><img src="{{url_for('static',filename='images/busstation.png')}}" height="100" ></a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                      </button>
+                          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                       <ul class="navbar-nav">
+                {% if session.get('userid') != None %}
+                {% if data %}
+              <li class="nav-item active navitem">
+            <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
+          {% endif %}
+              <li class="nav-item navitem">
+                    <a class="nav-link" href="{{url_for('about')}}">About Eko Transit</a>
+          </li>
+          </li>
+          {% if session.get('userid') != None %}
+          {% if data %}
+                  <li class="nav-item dropdown navitem">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   {{data.user_fname}}'s Routes 
+                    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <a class="dropdown-item" href=""></a>
+      <a class="dropdown-item" href=""></a>
+    </div>
+  </li>
+  {% endif %}
+ {% endif %}
+ {% if session.get('userid') != None %}
+ <li class="nav-item navitem">
+  <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+</li>
+{% endif %}
+</ul>
+</div>
+</div>
+</nav>
+</div>
+</div>
+<div>
+  {% block content%}
+
+ 
+</div>
+{% endblock content%}
+<!-- <div class="row">
+	<div class="overlay col-sm-12 footer">
+			<footer>EKO Transit &copy; 2021. All Rights Reserved</footer>
+		</div>
+	</div>
+</div> -->
+
+
+
+
+
+
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>
+
+
+</body>	
+
+
+
+
+
+
+
+</html>

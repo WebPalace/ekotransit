@@ -1,0 +1,84 @@
+{% extends 'user/base.html' %}
+
+{%block title%}
+Home
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/ethome.css")}}
+{% endblock css%}
+
+
+{% block nav %}{% for i in data %} {{ i[0].user_fname }}'s Routes {% endfor %} {% endblock nav%}
+
+{% block content%}
+	<div class="container-fluid parent">
+	<div class="row text-center">
+			<div class="col-sm-12">
+				<h1 class="banner">EKO Transit System</h1>
+			</div>
+		</div>
+
+	<div class="row hello">
+		<div class="col-sm-12 bus text-center">
+			<img src="{{url_for('static',filename='images/busstation.png')}}" id="bus">
+		</div>
+	</div>
+
+	<div class="row message">
+		<div class="col-sm-12 text-center">
+		{% with msg = get_flashed_messages() %}
+		{% if msg %}
+		{% for i in msg %}
+		<div class="alert alert-success"> {{ i }} </div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}</div></div>
+
+
+	<div class="row blue">
+		<div class="overlay col-sm-12">
+			<form action="{{url_for('navigation')}}" method="post">
+			<div class="input-group input-group-lg flex-nowrap searchbar">
+  			<span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  			<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+			</svg></span>
+  			<input type="text" class="form-control" value="Where are you ?" aria-label="Username" aria-describedby="addon-wrapping">
+			<select class="form-control" name="location">
+			<option value=""> Please Select</option>
+            {% for i in deets %}
+          <option value="{{ i.stop_name }}">{{ i.stop_name }}</option>
+            {% endfor %}
+            </select>
+  		</div>
+		</div>
+	</div>
+		<div class="row blue">
+		<div class="overlay col-sm-12">
+<div class="input-group input-group-lg flex-nowrap searchbar">
+  			<span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  			<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+			</svg></span>
+  			<input type="text" class="form-control" value="Where are you going ?" aria-describedby="addon-wrapping">
+			  <select class="form-control" name="destination">
+				<option value=""> Please Select</option>
+				{% for i in deets %}
+			  <option value="{{ i.stop_name }}">{{ i.stop_name }}</option>
+				{% endfor %}
+				</select> 
+</div>
+</div>
+</div>
+	<div class="row blue">
+		<div class="overlay col-sm-12 text-center">
+	<button class="btn btn-outline-primary form-control generate" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+  	<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+	</svg>Generate Route</button>
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+</form>
+
+{{ user }}
+</div>
+</div>
+{% endblock content%}
+	

@@ -1,0 +1,81 @@
+{% extends 'user/base.html' %}
+
+{%block title%}
+Navigate
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/etnavpage.css")}}
+{% endblock css%}
+
+{% block content%}
+	<div class="container-fluid parent">
+	<div class="row banner">
+			<div class="col-sm-12">
+				<h1>EKO Transit System</h1>
+			</div>
+		</div>
+
+	<div class="row blue">
+		<div class="overlay col-sm-12">
+			<form action="{{url_for('navigation')}}" method="">
+			<div class="input-group input-group-lg flex-nowrap searchbar">
+  			<span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  			<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+			</svg></span>
+  			<input type="text" class="form-control" placeholder="You are at: {{ a }}" aria-label="Username" aria-describedby="addon-wrapping">
+  		</div>
+		</div>
+	</div>
+		<div class="row blue">
+		<div class="overlay col-sm-12">
+<div class="input-group input-group-lg flex-nowrap searchbar">
+  			<span class="input-group-text" id="addon-wrapping"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  			<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+			</svg></span>
+  			<input type="text" class="form-control" placeholder="You are going to: {{ b }}" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+</div>
+</div>
+	<div class="row blue">
+		<div class="overlay col-sm-12 text-center">
+	<button class="btn btn-outline-primary form-control generate" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16" id="generation">
+  	<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+	</svg>See Available Routes</button>
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+</form>
+</div>
+</div>
+<div class="col-md-4" style="margin:auto">
+	{% if deets.busroutes.route_id == deets2.busroutes.route_id %}
+    <form action="{{url_for('journey')}}" method="post" id="form2">
+      <input type="text" class="form-control text-center" placeholder="Route Name" name="route2" id="route2" value=" Route {{deets.busroutes.route_name}}">
+	  <br>
+      <input type="submit" class="form-control btn btn-outline-primary" value="Select Route" name="addroute" id="addroute">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+	{% else %}
+	<p style="font-size:20px;font-family:futura">It looks like there is no Direct Route to your Destination. Here are some alternatives:</p>
+	<form action="{{url_for('journey')}}" method="post" id="form3">
+		<input type="text" class="form-control text-center" placeholder="Route Name" name="routedis1" id="route3" value=" Route {{deets.busroutes.route_name}}">
+		<br>
+		<input type="submit" class="form-control btn btn-outline-primary" value="See the Stops on this Route" name="routesel1" id="addroute">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+	  </form>
+	  <br>
+	  <br>
+	 
+	  <form action="{{url_for('journey')}}" method="post" id="form4">
+		<input type="text" class="form-control text-center" placeholder="Route Name" name="routedis2" id="route4" value="Route {{deets2.busroutes.route_name}}">
+		<br>
+		<input type="submit" class="form-control btn btn-outline-primary" value="See the Stops on this Route" name="routesel2" id="addroute">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+	  </form>
+	{% endif %}
+    </div>
+  </div>
+
+
+{% endblock content%}
+
+

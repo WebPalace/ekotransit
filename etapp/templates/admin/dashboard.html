@@ -1,0 +1,241 @@
+{% extends 'admin/base.html' %}
+
+{%block title%}
+Admin
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/ethome.css")}}
+{% endblock css%}
+
+{% block content%}
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .navbar-brand{background-color:#484C6B;}
+    </style>
+
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+  #stop{position:relative;bottom:10px}
+  #route{position:relative;bottom:5px}
+  #route1{position:relative;bottom:10px}
+  #route2{position:relative;bottom:5px}
+</style>
+
+</head>
+<body>
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Eko Transit System</a>
+<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+</header>
+
+<div class="container-fluid">
+<div class="row">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="position-sticky pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{{url_for('adminpage')}}">
+          <span data-feather="home"></span>
+          Admin Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)" id="stoplink">
+          Add Stops
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)"id="routelink">
+         Add Routes
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('adminlogout')}}">
+          Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"> Admin Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-primary" id="btn1">Add Stop</button>
+        <button type="button" class="btn btn-sm btn-outline-primary"id="btn2">Add Route</button>
+      </div>
+    </div>
+  </div>
+  <div class="row message">
+    <div class="col-sm-12 text-center">
+{% with msg = get_flashed_messages() %}
+{% if msg %}
+{% for i in msg %}
+<div class="alert alert-success"> {{ i }} </div>
+{% endfor %}
+{% endif %}
+{% endwith %}</div></div>
+
+
+  <div class="row">
+  <div class="col-md-4">
+    <form action="{{url_for('addstop')}}" method="post" id="form1" style="display:none">
+      <input type="text" class="form-control" placeholder="Stop Name" name="stop" id="stop">
+      <select class="form-control" name="myroute">
+				<option value=""> Route ID</option>
+				{% for i in routes %}
+			  <option value="{{ i.route_id }}">{{ i.route_id }}</option>
+				{% endfor %}
+				</select>
+      <input type="submit" class="form-control btn btn-outline-primary" value="Add Stop" name="addstop" id="addstop">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+    </div>
+
+    <div class="col-md-4">
+    <form action="{{url_for('addroute')}}" method="post" id="form2" style="display:none">
+      <input type="text" class="form-control" placeholder="Route Name" name="route2" id="route2">
+      <input type="submit" class="form-control btn btn-outline-primary" value="Add Route" name="addroute" id="addroute">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+    </div>
+    
+  </div>
+
+  <h2>Current Routes</h2>
+  <div class="row">
+  <div class="table-responsive col-md-4">
+  <form action="{{url_for('deletestop')}}" method="post" id="form3">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          
+          <th scope="col">Route A: Ajah-Lekki</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in b %}
+        <tr>
+          <td> {{ loop.index }} </td>
+          <td><input type="checkbox" name='stopid' value="{{b.stop_id}}"> {{ i.stop_name }} </td>
+          {% endfor %}
+          </tr>
+      </tbody>
+    </table>
+    <input type="submit" class="form-control btn btn-outline-primary" value="Delete Selected Stops" name="delstop1" id="delstop1">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+  </div>
+  <div class="table-responsive col-md-4">
+    <form action="{{url_for('deletestop')}}" method="post" id="form3">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Route B: Fadeyi-Ikeja </th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for i in b2 %}
+          <tr>
+          <td> {{ loop.index }} </td>
+          <td><input type="checkbox" name='stopid2' value="{{b2.stop_id}}"> {{ i.stop_name }} </td>
+          {% endfor %}
+          </tr>
+      </tbody>
+    </table>
+    <input type="submit" class="form-control btn btn-outline-primary" value="Delete Selected Stops" name="delstop2" id="delstop2">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+  </div>
+  <div class="table-responsive col-md-4">
+    <form action="{{url_for('deletestop')}}" method="post" id="form5">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Route C: BRT Terminal </th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for i in b3 %}
+          <tr>
+          <td> {{ loop.index }} </td>
+          <td><input type="checkbox" name='stopid3' value="{{b.stop_id}}">{{ i.stop_name }} </td>
+          {% endfor %}
+          </tr>
+      </tbody>
+    </table>
+    <input type="submit" class="form-control btn btn-outline-primary" value="Delete Selected Stops" name="delstop3" id="delstop3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+  </div>
+  </div>
+
+</main>
+</div>
+</div>
+
+{% block jquery %}
+
+{{ super() }}
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('#btn1').click(function(){
+          $('#form1').show()
+          $('#form2').hide()
+      })
+      $('#btn2').click(function(){
+          $('#form1').hide()
+          $('#form2').show()
+  })
+  $('#stoplink').click(function(){
+          $('#form1').hide()
+          $('#form2').show()
+  })
+  $('#routelink').click(function(){
+          $('#form1').hide()
+          $('#form2').show()
+  })
+})
+
+  </script>
+    
+  {% endblock jquery %}
+{% endblock content%}
+

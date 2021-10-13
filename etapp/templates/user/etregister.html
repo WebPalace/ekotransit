@@ -1,0 +1,49 @@
+{% extends 'user/base.html' %}
+
+{%block title%}
+Home
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/etregister.css")}}
+{% endblock css%}
+
+{% block content%}
+	<div class="container-fluid parent">
+	<div class="row text-center">
+			<div class="col-sm-12">
+				<h2 class="banner">Registration Page </h2>
+			</div>
+		</div>
+
+	<div class="row blue">
+		<div class="overlay col-sm-12 text-center">
+			<form action="{{url_for('registration')}}" method="post">
+				{{ form.userfname (class_='form-control formelement',placeholder='First Name')  }}
+		</div>
+	</div>
+		<div class="row blue">
+		<div class="overlay col-sm-12 text-center">
+			{{ form.userlname (class_='form-control formelement' ,placeholder='Last Name')  }}
+</div>
+</div>
+<div class="row blue">
+    <div class="overlay col-sm-12 text-center">
+		{{ form.email (class_='form-control formelement',placeholder='Email')  }}
+</div>
+</div>
+<div class="row blue">
+    <div class="overlay col-sm-12 text-center">
+		 {{ form.password (class_='form-control formelement',placeholder='Choose Password')  }}
+</div>
+</div>
+
+	<div class="row blue">
+		<div class="overlay col-sm-12 text-center">
+	{{ form.submit (class_='form-control btn btn-outline-primary formelement', value='Register') }}
+	{{ form.csrf_token() }} 
+</form>
+
+</div>
+</div>
+{% endblock content%}

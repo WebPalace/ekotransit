@@ -1,0 +1,35 @@
+{% extends 'user/base.html' %}
+
+{%block title%}
+Home
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/etlogin.css")}}
+{% endblock css%}
+
+{% block content%}
+	<div class="container-fluid parent">
+	<div class="row text-center">
+			<div class="col-sm-12">
+				<h1 class="banner">EKO Transit System</h1>
+			</div>
+		</div>
+<br>
+<br>
+<br>
+	<div class="row hello">
+		<div class="col-sm-8 bus text-center">
+			<fieldset>
+			<h3>Go your own way with Eko Transit System. We help you simplify the journey with the robust Lagos State public transit options. With features like Route Lookup, Route Saving and Route Navigation, we help you ease the stress of 'bus-hopping'. Try us out Today!</h3>
+			</fieldset>
+			<br>
+			<br>
+			<br>
+			<a href="{{url_for('home')}}"class="btn btn-outline-dark">Find a Route</a>
+		</div>
+	</div>
+
+
+	
+{% endblock content%}

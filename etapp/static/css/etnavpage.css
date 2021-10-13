@@ -1,0 +1,45 @@
+/*
+Author: Toluwanimi Sola-Adeyemi
+Date: 17/August/2021
+Program:  External StyleSheet for EkoTransit navigation
+*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+@font-face{font-family:font1;src:url("merriweather-black-webfont.woff")format("woff")}
+@font-face{font-family:font2;src:url("merriweather-light-webfont.woff")format("woff")}
+@font-face{font-family:font3;src:url("firesans-regular-webfont.woff")format("woff")}
+@font-face{font-family:font4;src:url("firesans-light-webfont.woff")format("woff")}
+
+.parent{position:absolute;}
+.map{background-color:white}
+.overlay{
+	background-color:rgba(255,255,255,0.4);
+	background-size:cover}
+.blue{height:10px}
+.bus{position:relative;bottom:30px;left:200px}
+.banner{
+	position:relative;
+	top:15px;
+	height:100px;
+	text-align:center;
+	font-family: 'Rampart One', cursive; 
+	font-size:60px;
+	}
+.blue{height:80px;
+	}
+.searchbar{
+	position:relative;
+	top:20px;
+	margin:auto;
+	width:35%;
+	}
+.generate{
+	width:35%;
+	color:#000;
+	}
+.footer{
+	text-align:center;
+	height:100px;
+	line-height:100px;
+	}

@@ -1,0 +1,47 @@
+{% extends 'user/base.html' %}
+
+{%block title%}
+Home
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/etregister.css")}}
+{% endblock css%}
+
+{% block content%}
+	<div class="container-fluid parent">
+	<div class="row text-center">
+			<div class="col-sm-12">
+				<h2 class="banner">LogIn </h2>
+			</div>
+		</div>
+
+        <div class="row message">
+            <div class="col-sm-12 text-center">
+        {% with msg = get_flashed_messages() %}
+        {% if msg %}
+        {% for i in msg %}
+        <div class="alert alert-warning"> {{ i }} </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}</div></div>
+
+<form action="{{url_for('userlogin')}}" method="post">
+<div class="row blue">
+    <div class="overlay col-sm-12 text-center">
+            {{ form.email (class_='form-control formelement',placeholder='Email')  }}
+</div>
+</div>
+<div class="row blue">
+    <div class="overlay col-sm-12 text-center">
+        {{ form.password (class_='form-control formelement',placeholder='Enter Password')  }}
+</div>
+</div>
+	<div class="row blue">
+		<div class="overlay col-sm-12 text-center">
+            {{ form.submit (class_='form-control btn btn-outline-primary formelement', value='Login') }}
+            {{ form.csrf_token() }} 
+        </form>         
+</div>
+</div>
+{% endblock content%}

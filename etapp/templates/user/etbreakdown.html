@@ -1,0 +1,71 @@
+{% extends 'user/base.html' %}
+
+{%block title%}
+Journey Breakdown
+{% endblock title%}
+
+{% block css %}
+{{url_for('static',filename="css/etbreakdown.css")}}
+{% endblock css%}
+
+{% block content%}
+	<div class="container-fluid parent">
+	<div class="row banner">
+			<div class="col-sm-12">
+				<h1>EKO Transit System</h1>
+			</div>
+		</div>
+
+	
+	
+
+
+<div class="row map">
+	<div class="col-sm-12 text-center">
+		<p class="journey">Journey Breakdown As Follows:</p>
+		<br>
+		{% if selection1 %}
+		<p>You Selected {{ routedis1 }}</p>
+		<table class="table table-striped table-sm">
+			<thead>
+			  <tr>
+				<th scope="col">#</th>
+				<th scope="col"> {{ routedis1 }} </th>
+			  </tr>
+			</thead>
+			<tbody>
+				{% for i in deets.stop_route_id %}
+				<tr>
+				<td> {{ loop.index }} </td>
+				<td>{{ i }} </td>
+				{% endfor %}
+				</tr>
+			</tbody>
+		  </table>
+		{% else %}
+		<p>You Selected {{ routedis2 }}</p>
+		<table class="table table-striped table-sm">
+			<thead>
+			  <tr>
+				<th scope="col">#</th>
+				<th scope="col"> {{ routedis2 }} </th>
+			  </tr>
+			</thead>
+			<tbody>
+				{% for i in deets2.stop_route_id %}
+				<tr>
+				<td> {{ loop.index }} </td>
+				<td>{{ i }} </td>
+				{% endfor %}
+				</tr>
+			</tbody>
+		  </table>
+		{% endif %}
+		
+
+	</div>
+</div>
+</div>
+{% endblock content%}
+
+
